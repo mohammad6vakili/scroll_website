@@ -403,7 +403,6 @@ const Features = () => {
                 >
                   <video
                     ref={playVideoRef[i]}
-                    preload="yes"
                     loop
                     muted
                     playsInline
@@ -454,7 +453,6 @@ const Features = () => {
                 >
                   <video
                     ref={playVideoRef[i]}
-                    preload="yes"
                     playsInline
                     loop
                     muted
