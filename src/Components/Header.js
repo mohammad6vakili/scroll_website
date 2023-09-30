@@ -5,6 +5,7 @@ import { useState } from "react";
 const Header = (props) => {
   const [navOpen, setNavOpen] = useState(false);
   const scrollToThis = (e) => {
+    setNavOpen(false);
     if (document.getElementById(e.target.href.split("#")[1]))
       document
         .getElementById(e.target.href.split("#")[1])
@@ -29,19 +30,18 @@ const Header = (props) => {
         menu
       </button>
       <nav className={`${classes.navMobile} ${!navOpen && classes.navHidden}`}>
-        <p href="/#home" onClick={scrollToThis} className={classes.navLink}>
+        <a href="/#" onClick={scrollToThis} className={classes.navLink}>
           Home
-        </p>
-        <p href="/marketplace" onClick={scrollToThis}>
+        </a>
+        <a href="https://marketplace.flibbo.com/" onClick={scrollToThis}>
           Market Place
-        </p>
-        <p href="#features" onClick={scrollToThis}>
+        </a>
+        <a href="/#features" onClick={scrollToThis}>
           Feature
-        </p>
-        <p href="#login" onClick={scrollToThis}>
-          Login
-        </p>
-        <p href="/contact-us">Contact Us</p>
+        </a>
+        <a href="https://marketplace.flibbo.com/">Login</a>
+        <a href="https://marketplace.flibbo.com/">Download Flibbo</a>
+        <a href="/contact-us">Contact Us</a>
       </nav>
       <nav className={classes.navigation}>
         <a href="/#home" onClick={scrollToThis}>
