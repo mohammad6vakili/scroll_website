@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { createRef, useEffect, useRef, useState } from "react";
 import { useAnimateOnScroll } from "../Hooks/UseAninateOnScroll";
 import classes from "./Features.module.css";
 import cardImage4 from "../Assets/video/Bronze _Res 360.mp4";
@@ -21,21 +21,9 @@ const Features = () => {
     threshold: 0,
     reapear: true,
   });
+  const [playVideoRef, setPlayVideoRef] = useState([]);
 
   const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 767px)");
-
-    function handleChange() {
-      setIsMobile(mediaQuery.matches);
-    }
-
-    handleChange();
-    mediaQuery.addListener(handleChange);
-
-    return () => mediaQuery.removeListener(handleChange);
-  }, []);
 
   const [animated, setAnimated] = useState(false);
   const [animated2, setAnimated2] = useState(false);
@@ -344,6 +332,40 @@ const Features = () => {
     </div>
   );
 
+  const arrLength = cards.length;
+
+  useEffect(() => {
+    // add or remove refs
+    setPlayVideoRef((elRefs) =>
+      Array(arrLength)
+        .fill()
+        .map((_, i) => elRefs[i] || createRef())
+    );
+  }, [arrLength]);
+
+  useEffect(() => {
+    if (playVideoRef?.length > 0) {
+      playVideoRef?.map((item) => {
+        item?.current?.play();
+      });
+
+      console.log(playVideoRef);
+    }
+  }, [playVideoRef]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+
+    function handleChange() {
+      setIsMobile(mediaQuery.matches);
+    }
+
+    handleChange();
+    mediaQuery.addListener(handleChange);
+
+    return () => mediaQuery.removeListener(handleChange);
+  }, []);
+
   return (
     <div className={classes.main}>
       <div className={classes.container}>
@@ -380,8 +402,8 @@ const Features = () => {
                   className={classes.cardImage}
                 >
                   <video
+                    ref={playVideoRef[i]}
                     preload="yes"
-                    autoPlay
                     loop
                     muted
                     playsInline
@@ -431,9 +453,9 @@ const Features = () => {
                   className={classes.cardImage}
                 >
                   <video
+                    ref={playVideoRef[i]}
                     preload="yes"
                     playsInline
-                    autoPlay={true}
                     loop
                     muted
                     style={
