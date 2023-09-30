@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { useAnimateOnScroll } from "../Hooks/UseAninateOnScroll";
 import classes from "./Home.module.css";
 import frame from "../Assets/apple-iphone-14-max-2022-medium.png";
@@ -22,6 +22,9 @@ const Home = (props) => {
     reapear: true,
   });
 
+  const videoRefOne = useRef(null);
+  const videoRefTwo = useRef(null);
+
   const [zoomedInRef, isZoomedIn] = useAnimateOnScroll({
     threshold: 0,
     reapear: true,
@@ -42,6 +45,15 @@ const Home = (props) => {
   const [zoomLevel, setZoomLevel] = useState(2.5);
 
   const [postsScroll, setPostsScroll] = useState(0);
+
+  useEffect(() => {
+    if (videoRefOne) {
+      videoRefOne?.current?.play();
+    }
+    if (videoRefTwo) {
+      videoRefTwo?.current?.play();
+    }
+  }, []);
 
   useEffect(() => {
     const handleOpacity = () => {
@@ -122,7 +134,15 @@ const Home = (props) => {
         <div className={`${classes.frame}`}>
           <img src={frame} alt="frame" className={classes.image} />
           {postsScroll === 0 ? (
-            <video autoPlay loop muted src={video} className={classes.video2} />
+            <video
+              ref={videoRefOne}
+              playsInline
+              loop
+              muted
+              className={classes.video2}
+            >
+              <source src={video} type="video/mp4" />
+            </video>
           ) : (
             <Fragment>
               <div className={classes.mobileHeader}>
@@ -157,7 +177,15 @@ const Home = (props) => {
             opacity: heroOpacity,
           }}
         >
-          <video autoPlay loop muted src={video} className={classes.video} />
+          <video
+            ref={videoRefTwo}
+            playsInline
+            loop
+            muted
+            className={classes.video}
+          >
+            <source src={video} type="video/mp4" />
+          </video>
 
           <p className={classes.textHeader} style={{ zIndex: "2" }}>
             Your Path To Mindful Socialising{" "}

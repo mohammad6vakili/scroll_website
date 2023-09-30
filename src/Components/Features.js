@@ -22,6 +22,7 @@ const Features = () => {
     reapear: true,
   });
   const [playVideoRef, setPlayVideoRef] = useState([]);
+  const [playVideoRefMobile, setPlayVideoRefMobile] = useState([]);
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -341,11 +342,23 @@ const Features = () => {
         .fill()
         .map((_, i) => elRefs[i] || createRef())
     );
+    setPlayVideoRefMobile((elRefs) =>
+      Array(arrLength)
+        .fill()
+        .map((_, i) => elRefs[i] || createRef())
+    );
   }, [arrLength]);
 
   useEffect(() => {
     if (playVideoRef?.length > 0) {
       playVideoRef?.map((item) => {
+        item?.current?.play();
+      });
+
+      console.log(playVideoRef);
+    }
+    if (playVideoRefMobile?.length > 0) {
+      playVideoRefMobile?.map((item) => {
         item?.current?.play();
       });
 
@@ -402,7 +415,7 @@ const Features = () => {
                   className={classes.cardImage}
                 >
                   <video
-                    ref={playVideoRef[i]}
+                    ref={playVideoRefMobile[i]}
                     loop
                     muted
                     playsInline
