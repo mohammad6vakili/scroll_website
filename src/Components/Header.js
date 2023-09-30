@@ -1,6 +1,7 @@
 import classes from "./Header.module.css";
 import logo from "../Assets/Group.png";
 import { useState } from "react";
+import { AiOutlineMenu } from "react-icons/ai";
 
 const Header = (props) => {
   const [navOpen, setNavOpen] = useState(false);
@@ -27,7 +28,7 @@ const Header = (props) => {
         className={classes.menuButton}
         onClick={() => setNavOpen((prev) => !prev)}
       >
-        menu
+        <AiOutlineMenu />
       </button>
       <nav className={`${classes.navMobile} ${!navOpen && classes.navHidden}`}>
         <a href="/#" onClick={scrollToThis} className={classes.navLink}>
@@ -40,7 +41,6 @@ const Header = (props) => {
           Feature
         </a>
         <a href="https://marketplace.flibbo.com/">Login</a>
-        <a href="https://marketplace.flibbo.com/">Download Flibbo</a>
         <a href="/contact-us">Contact Us</a>
       </nav>
       <nav className={classes.navigation}>
