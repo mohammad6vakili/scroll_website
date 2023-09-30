@@ -46,18 +46,6 @@ const Home = (props) => {
 
   const [postsScroll, setPostsScroll] = useState(0);
 
-  const mYref = useRef(null);
-  const mYref2 = useRef(null);
-
-  useEffect(() => {
-    if (videoRefOne) {
-      videoRefOne?.current?.play();
-    }
-    if (videoRefTwo) {
-      videoRefTwo?.current?.play();
-    }
-  }, []);
-
   useEffect(() => {
     const handleOpacity = () => {
       if (isPostsScrolling) {
@@ -114,12 +102,10 @@ const Home = (props) => {
     props.onToggleVisibility(isVisible);
   }, [isVisible, props]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      mYref.current?.play();
-      mYref2.current?.play();
-    }, 500);
-  }, []);
+  setTimeout(() => {
+    videoRefOne?.current?.play();
+    videoRefTwo?.current?.play();
+  }, [500]);
 
   return (
     <div className={classes.main} ref={homeRef}>
@@ -151,7 +137,7 @@ const Home = (props) => {
               muted
               className={classes.video2}
             >
-              <source type="video/mp4" src={video} />
+              <source src={video} type="video/mp4" />
             </video>
           ) : (
             <Fragment>
@@ -194,7 +180,7 @@ const Home = (props) => {
             muted
             className={classes.video}
           >
-            <source type="video/mp4" src={video} />
+            <source src={video} type="video/mp4" />
           </video>
 
           <p className={classes.textHeader} style={{ zIndex: "2" }}>
